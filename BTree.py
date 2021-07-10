@@ -21,7 +21,7 @@ class BTree:
 		if len(x.child) > 0:
 			for i in x.child:
 				self.print_tree(i, l)
-	
+
 	def search(self, k, x=None):
 		""" Search for key 'k' at position 'x'.
 		If 'x' is not specified, then search occurs from root.
@@ -101,6 +101,10 @@ class BTree:
 		t = self.t
 		y = x.child[i]
 		z = BTreeNode(y.leaf)
+		# y is split into 2 nodes.
+		# z is the right half of original y.
+		# the new y keeps the left half of original y 
+		# x is the parent of y and z
 		x.child.insert(i + 1, z)
 		x.keys.insert(i, y.keys[t - 1])
 		z.keys = y.keys[t : (2 * t) - 1]
@@ -289,7 +293,8 @@ def main():
 		B.insert((i, 2*i))
 	print("\n")
 	B.print_tree(B.root)
-	B.delete(B.root,(49,))
+	B.delete(B.root, (49,))
+	B.delete(B.root, (490,))
 	if B.search(54) != None:
 		(x, i) = B.search(54)
 	else:
